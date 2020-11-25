@@ -1,0 +1,15 @@
+﻿  Lab6.cpp
+E:\Сп\Lab6\Lab6\Lab6.cpp(232,14): warning C4101: pen: неиспользованная локальная переменная
+E:\Сп\Lab6\Lab6\Lab6.cpp(292,23): warning C4244: =: преобразование "double" в "int", возможна потеря данных
+E:\Сп\Lab6\Lab6\Lab6.cpp(293,23): warning C4244: =: преобразование "double" в "int", возможна потеря данных
+E:\Сп\Lab6\Lab6\Lab6.cpp(304,23): warning C4244: =: преобразование "double" в "int", возможна потеря данных
+E:\Сп\Lab6\Lab6\Lab6.cpp(305,23): warning C4244: =: преобразование "double" в "int", возможна потеря данных
+E:\Сп\Lab6\Lab6\Lab6.cpp(316,23): warning C4244: =: преобразование "double" в "int", возможна потеря данных
+E:\Сп\Lab6\Lab6\Lab6.cpp(317,23): warning C4244: =: преобразование "double" в "int", возможна потеря данных
+E:\Сп\Lab6\Lab6\Lab6.cpp(328,23): warning C4244: =: преобразование "double" в "int", возможна потеря данных
+E:\Сп\Lab6\Lab6\Lab6.cpp(329,23): warning C4244: =: преобразование "double" в "int", возможна потеря данных
+E:\Сп\Lab6\Lab6\Lab6.cpp(340,23): warning C4244: =: преобразование "double" в "int", возможна потеря данных
+E:\Сп\Lab6\Lab6\Lab6.cpp(341,23): warning C4244: =: преобразование "double" в "int", возможна потеря данных
+E:\Сп\Lab6\Lab6\Lab6.cpp(352,23): warning C4244: =: преобразование "double" в "int", возможна потеря данных
+E:\Сп\Lab6\Lab6\Lab6.cpp(353,23): warning C4244: =: преобразование "double" в "int", возможна потеря данных
+  Lab6.vcxproj -> E:\Сп\Lab6\Debug\Lab6.exe
