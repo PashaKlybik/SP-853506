@@ -1,0 +1,6 @@
+﻿  LAB7.cpp
+C:\Users\Алина Садовская\source\repos\lab2\LAB7\LAB7.cpp(34,15): warning C4244: инициализация: преобразование "LRESULT" в "int", возможна потеря данных
+C:\Users\Алина Садовская\source\repos\lab2\LAB7\LAB7.cpp(54,18): warning C4244: инициализация: преобразование "LRESULT" в "int", возможна потеря данных
+C:\Users\Алина Садовская\source\repos\lab2\LAB7\LAB7.cpp(68,18): warning C4244: инициализация: преобразование "LRESULT" в "int", возможна потеря данных
+C:\Users\Алина Садовская\source\repos\lab2\LAB7\LAB7.cpp(233,38): warning C4244: =: преобразование "LRESULT" в "int", возможна потеря данных
+  LAB7.vcxproj -> C:\Users\Алина Садовская\source\repos\lab2\x64\Debug\LAB7.exe

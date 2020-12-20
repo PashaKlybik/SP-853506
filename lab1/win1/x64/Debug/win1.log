@@ -1,0 +1,4 @@
+﻿  win1.cpp
+C:\Users\Алина Садовская\source\repos\lab1\win1\win1.cpp(93,41): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\Алина Садовская\source\repos\lab1\win1\win1.cpp(150,12): warning C4244: return: преобразование "WPARAM" в "int", возможна потеря данных
+  win1.vcxproj -> C:\Users\Алина Садовская\source\repos\lab1\x64\Debug\win1.exe
