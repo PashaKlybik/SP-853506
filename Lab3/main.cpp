@@ -14,17 +14,13 @@ void SetupAppIcon(HWND__ *hwnd);
 int WINAPI WinMain(HINSTANCE hinstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
     const wchar_t CLASS_NAME[] = L"Sample";
 
-    HCURSOR hCursor = LoadCursorFromFile(L"../cursor.cur");
-
     WNDCLASS wc = {};
     wc.hInstance = hinstance;
     wc.lpszClassName = CLASS_NAME;
     wc.lpfnWndProc = reinterpret_cast<WNDPROC>(WndProc);
     wc.lpszMenuName = nullptr;
     wc.style = CS_HREDRAW | CS_VREDRAW;
-    if (hCursor) {
-        wc.hCursor = hCursor;
-    }
+    wc.hbrBackground = (HBRUSH) (COLOR_WINDOW + 1);
 
     RegisterClass(&wc);
     HWND hwnd = CreateWindow(
@@ -81,61 +77,48 @@ void DrawImage(HWND hwnd) {
     HDC hdc = BeginPaint(hwnd, &ps);
     HPEN pen;
     HBRUSH brush;
-    if (isDraw)
-    {
-        brush = CreateSolidBrush(RGB(224, 14, 48));
+    if (isDraw) {
+        brush = CreateSolidBrush(YELLOW);
         SelectObject(hdc, brush);
         Rectangle(hdc, 260, 400, 420, 200);
-
-        brush = CreateSolidBrush(RGB(50, 50, 50));
-        SelectObject(hdc, brush);
 
         Rectangle(hdc, 300, 260, 380, 220);
 
-        pen = CreatePen(BS_SOLID, 2, RGB(0, 0, 0));
-        SelectObject(hdc, pen);
+        brush = CreateSolidBrush(DARK_GRAY);
+        SelectObject(hdc, brush);
 
-        POINT p1[5] = { 270, 320, 270, 280, 285, 280, 285, 295, 270, 280 };
+        POINT p1[5] = {456, 320, 420, 280, 121, 267, 285, 112, 300, 280};
         Polygon(hdc, p1, 5);
 
-        // O-Letter
+        brush = CreateSolidBrush(GRAY);
+        SelectObject(hdc, brush);
+
+        POINT p2[5] = {151, 151, 122, 315, 211, 77, 125, 122, 523, 124};
+        Polygon(hdc, p2, 5);
+
+        pen = CreatePen(BS_SOLID, 2, PURPLE);
+        SelectObject(hdc, pen);
         MoveToEx(hdc, 305, 320, NULL);
         LineTo(hdc, 305, 280);
         LineTo(hdc, 325, 280);
-        LineTo(hdc, 325, 320);
-        LineTo(hdc, 305, 320);
 
-        //S-letter
-        MoveToEx(hdc, 335, 320, NULL);
-        LineTo(hdc, 355, 320);
-        LineTo(hdc, 355, 300);
-        LineTo(hdc, 335, 300);
-        LineTo(hdc, 335, 280);
-        LineTo(hdc, 355, 280);
-
-        // T-letter
-        MoveToEx(hdc, 365, 280, NULL);
-        LineTo(hdc, 385, 280);
-        LineTo(hdc, 375, 280);
-        LineTo(hdc, 375, 320);
-
-
-        // Mail-painting
-        pen = CreatePen(BS_SOLID, 2, RGB(255, 255, 255));
+        pen = CreatePen(BS_SOLID, 0, BLACK);
         SelectObject(hdc, pen);
-        MoveToEx(hdc, 270, 330, NULL);
-        LineTo(hdc, 270, 380);
-        LineTo(hdc, 410, 380);
-        LineTo(hdc, 410, 330);
-        LineTo(hdc, 270, 330);
-        LineTo(hdc, 340, 360);
-        LineTo(hdc, 410, 330);
-    }else{
-        brush = CreateSolidBrush(RGB(255, 255, 255));
+        brush = CreateSolidBrush(CIAN);
         SelectObject(hdc, brush);
-        pen = CreatePen(BS_SOLID, 2, RGB(255, 255, 255));
+        Ellipse(hdc, 120, 120, 200, 230);
+        brush = CreateSolidBrush(PURPLE);
+        SelectObject(hdc, brush);
+        Ellipse(hdc, 130, 130, 210, 240);
+        brush = CreateSolidBrush(BLACK);
+        SelectObject(hdc, brush);
+        Ellipse(hdc, 125, 125, 205, 235);
+
+        pen = CreatePen(BS_SOLID, 2, BLACK);
         SelectObject(hdc, pen);
-        Rectangle(hdc, 260, 400, 420, 200);
+
+        Arc(hdc, 123, 125, 65, 73, 350, 120, 224, 225);
+        Arc(hdc, 123, 456, 456, 123, 350, 120, 224, 225);
     }
     EndPaint(hwnd, &ps);
 }

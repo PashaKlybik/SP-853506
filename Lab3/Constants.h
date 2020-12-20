@@ -13,6 +13,13 @@ const int HEIGHT = 600;
 const int BUTTON_WIDTH = 100;
 const int BUTTON_HEIGHT = 50;
 
+#define YELLOW RGB(200 , 200 , 0)
+#define GRAY RGB(140 , 140 , 140)
+#define DARK_GRAY RGB(40 , 40 , 40)
+#define BLACK RGB(0 , 0 , 0)
+#define PURPLE RGB(255 , 100 , 120)
+#define CIAN RGB(150 , 150 , 240)
+
 struct LAYOUT_PARAMS {
     LAYOUT_PARAMS(int x, int y, int w, int h) : x(x), y(y), w(w), h(h) {}
 
