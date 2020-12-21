@@ -6,14 +6,13 @@
 #include <iostream>
 #include <windows.h>
 #include <windowsx.h>
-#include "Views.h"
-#include "../Lab5_2/State.h"
+#include "Constants.h"
+#include "State.h"
 
 LRESULT APIENTRY WndProc(HWND hwnd, UINT message, WPARAM wparam, LPARAM lparam);
 
-const wchar_t CLASS_NAME[] = L"Sample";
-
 int WINAPI WinMain(HINSTANCE hinstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
+    const wchar_t CLASS_NAME[] = L"Sample";
 
     WNDCLASS wc = {};
     wc.hInstance = hinstance;
@@ -26,7 +25,7 @@ int WINAPI WinMain(HINSTANCE hinstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     RegisterClass(&wc);
     HWND hwnd = CreateWindow(
             CLASS_NAME,
-            L"Sample window title",
+            NAME,
             WS_OVERLAPPEDWINDOW,
             CW_USEDEFAULT, CW_USEDEFAULT, WIDTH, HEIGHT,
             nullptr,
@@ -35,10 +34,9 @@ int WINAPI WinMain(HINSTANCE hinstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
             nullptr
     );
 
-    InitView(hwnd, hinstance);
-
     ShowWindow(hwnd, nCmdShow);
     UpdateWindow(hwnd);
+
 
     MSG msg;
     while (GetMessage(&msg, nullptr, 0, 0)) {
@@ -48,52 +46,62 @@ int WINAPI WinMain(HINSTANCE hinstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     return 0;
 }
 
+void TryDraw(HWND hwnd) {
+    if (!params.isDraw) return;
 
-void UpdateState(int src, HWND hwnd) {
-    switch (src) {
-        case DRAW_ID:
-            params.isDraw = !params.isDraw;
+    PAINTSTRUCT ps;
+    HDC hdc = BeginPaint(hwnd, &ps);
+    HBRUSH brush = CreateSolidBrush(params.selectedColor);
+    SelectObject(hdc, brush);
+
+    HPEN pen = CreatePen(BS_SOLID, 0, params.selectedColor);
+    SelectObject(hdc, pen);
+
+
+    POINT p[4] = {x, y - 10, x + 5, y, x, y + 10, x - 5, y};
+    POINT s[6] = {x - 3, y + 5, x + 5, y - 1, x - 5, y - 1, x + 3, y + 5, x, y - 5, x - 3, y + 5};
+
+    switch (params.selectedShape) {
+        case CIRCLE_ID:
+            Ellipse(hdc, x, y, x + 10, y + 10);
             break;
-        case RED_ID:
-            params.selectedColor = RGB(255, 0, 0);
-            break;
-        case BLUE_ID:
-            params.selectedColor = RGB(0, 0, 255);
-            break;
-        case GREEN_ID:
-            params.selectedColor = RGB(0, 255, 0);
+        case SQUARE_ID:
+            Rectangle(hdc, x, y, x + 10, y + 10);
             break;
         case RHOMBUS_ID:
-        case CIRCLE_ID:
-        case SQUARE_ID:
+            Polygon(hdc, p, 4);
+            break;
         case STAR_ID:
-            params.selectedShape = src;
+            Polyline(hdc, s, 6);
             break;
     }
-    COPYDATASTRUCT pending;
-    pending.lpData = &params;
-    pending.cbData = sizeof(params);
-    pending.dwData = MESSAGE_ID;
-    HWND target = FindWindow(CLASS_NAME, SECOND_NAME);
-    if (target != nullptr) {
-        SendMessage(
-                target,
-                WM_COPYDATA,
-                (WPARAM) (HWND) hwnd,
-                (LPARAM) (LPVOID) &pending
-        );
-    } else {
-        MessageBox(hwnd, L"Can't send WM_COPYDATA", L"Error", MB_OK);
-    }
+
+    EndPaint(hwnd, &ps);
+}
+
+void UpdateState(LPARAM src) {
+    auto received = (PCOPYDATASTRUCT) src;
+    auto data = (DrawParams *) received->lpData;
+    params.isDraw = data->isDraw;
+    params.selectedShape = data->selectedShape;
+    params.selectedColor = data->selectedColor;
 }
 
 LRESULT WINAPI WndProc(HWND hwnd, UINT Message, WPARAM wparam, LPARAM lparam) {
     switch (Message) {
+        case WM_PAINT:
+            TryDraw(hwnd);
+            break;
         case WM_DESTROY:
             PostQuitMessage(0);
             break;
-        case WM_COMMAND:
-            UpdateState(wparam, hwnd);
+        case WM_COPYDATA:
+            UpdateState(lparam);
+            break;
+        case WM_LBUTTONUP:
+            x = GET_X_LPARAM(lparam);
+            y = GET_Y_LPARAM(lparam);
+            InvalidateRect(hwnd, nullptr, true);
             break;
         default:
             return DefWindowProc(hwnd, Message, wparam, lparam);

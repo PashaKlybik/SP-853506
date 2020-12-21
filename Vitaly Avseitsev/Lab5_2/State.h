@@ -7,4 +7,6 @@ struct DrawParams {
     int selectedShape;
 } params;
 
+int x, y;
+
 #endif //LAB5_STATE_H

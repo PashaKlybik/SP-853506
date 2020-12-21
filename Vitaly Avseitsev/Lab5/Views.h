@@ -15,9 +15,6 @@ struct Views {
     HWND draw;
 } views;
 
-HWND settings;
-HWND canvas;
-
 HWND DrawButton(HINSTANCE hinstance, HWND parent, LAYOUT_PARAMS params, const wchar_t *name, int type) {
     HWND res = CreateWindow(
             BUTTON,
